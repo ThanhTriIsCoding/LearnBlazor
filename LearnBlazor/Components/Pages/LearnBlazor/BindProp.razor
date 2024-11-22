@@ -8,9 +8,29 @@ IsActive : @Product.isActive <br />
 Price : @Product.Price <br />
 This Product is : @(Product.isActive? "Active" : "InActive")     <br />
 Is Active: <input type="checkbox" @bind="@Product.isActive"/> <br />
-Input Price: <input type="number" @bind="@Product.Price" bind:event="oninput" />
+Input Price:
+<input type="number" @bind="@Product.Price" bind:event="oninput" /> <br />
+
+<br />
+Produt Properties
+<select @bind="selectedProp">
+    @foreach(var prop in Product.ProductProperties)
+    {
+        <option value="@prop.Key">@prop.Value</option>
+    }
+</select>
+<br/>
+Selected Prop : @selectedProp <br/>
+
+@if (!string.IsNullOrEmpty(selectedProp))
+{
+    <p>Selected value : @Product.ProductProperties.FirstOrDefault(u => u.Key == selectedProp).Value</p>
+}
+
 
 @code {
+    private string selectedProp = "";
+
     Models.Product Product = new()
     {
       Id = 1,
